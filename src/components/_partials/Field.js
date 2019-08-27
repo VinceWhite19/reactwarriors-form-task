@@ -25,7 +25,7 @@ const Field = props => {
         onChange={onChange}
         error={error}
       />
-      {error ? <div className="invalid-feedback">{error}</div> : null}
+      {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );
 };

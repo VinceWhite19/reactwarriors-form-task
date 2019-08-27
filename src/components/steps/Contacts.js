@@ -64,9 +64,9 @@ const Contacts = props => {
         >
           {getOptionsList(countries)}
         </select>
-        {errors.country ? (
+        {errors.country && (
           <div className="invalid-feedback">{errors.country}</div>
-        ) : null}
+        )}
       </div>
       <div className="form-group">
         <label htmlFor="city">Country</label>
@@ -83,9 +83,7 @@ const Contacts = props => {
           </option>
           {getOptionsList(citiesList)}
         </select>
-        {errors.city ? (
-          <div className="invalid-feedback">{errors.city}</div>
-        ) : null}
+        {errors.city && <div className="invalid-feedback">{errors.city}</div>}
       </div>
     </Fragment>
   );
