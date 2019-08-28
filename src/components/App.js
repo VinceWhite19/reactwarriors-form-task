@@ -23,12 +23,6 @@ export default class App extends React.Component {
         city: 0,
         avatar: ""
       },
-      steps: [
-        { isActive: 1, isCompleted: 0, name: "Basic" },
-        { isActive: 0, isCompleted: 0, name: "Contacts" },
-        { isActive: 0, isCompleted: 0, name: "Avatar" },
-        { isActive: 0, isCompleted: 0, name: "Finish" }
-      ],
       errors: {}
     };
 
