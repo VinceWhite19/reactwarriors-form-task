@@ -12,8 +12,8 @@ const Steps = props => {
   return stepItems.map(item => (
     <div
       className={ClassNames("step", {
-        "is-active": item.id === step + 1,
-        "is-completed": item.id < step + 1
+        "is-active": item.id === step,
+        "is-completed": item.id < step
       })}
       key={item.id}
     >

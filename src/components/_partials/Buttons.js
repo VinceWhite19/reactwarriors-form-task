@@ -5,12 +5,12 @@ const Buttons = props => {
 
   return (
     <Fragment>
-      {step < 3 && (
+      {step < 4 && (
         <div className="d-flex justify-content-center">
           <button
             type="button"
             className="btn btn-light mr-4"
-            disabled={step === 0 ? true : false}
+            disabled={step === 1}
             onClick={prevStep}
           >
             Previous
@@ -24,7 +24,7 @@ const Buttons = props => {
           </button>
         </div>
       )}
-      {step === 3 && (
+      {step === 4 && (
         <div className="d-flex justify-content-center">
           <button type="button" className="btn btn-primary" onClick={resetAll}>
             Reset

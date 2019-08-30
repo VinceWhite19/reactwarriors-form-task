@@ -31,9 +31,9 @@ const Avatar = props => {
           >
             Choose avatar
           </label>
-          {errors.avatar ? (
+          {errors.avatar && (
             <div className="invalid-feedback">{errors.avatar}</div>
-          ) : null}
+          )}
         </div>
       </div>
     </Fragment>

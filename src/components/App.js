@@ -6,11 +6,11 @@ import Finish from "./steps/Finish";
 import Steps from "./_partials/Steps";
 import Buttons from "./_partials/Buttons";
 
-export default class App extends React.Component {
+export default class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.initalState = {
-      step: 0,
+      step: 1,
       values: {
         firstname: "",
         lastname: "",
@@ -23,12 +23,6 @@ export default class App extends React.Component {
         city: 0,
         avatar: ""
       },
-      steps: [
-        { isActive: 1, isCompleted: 0, name: "Basic" },
-        { isActive: 0, isCompleted: 0, name: "Contacts" },
-        { isActive: 0, isCompleted: 0, name: "Avatar" },
-        { isActive: 0, isCompleted: 0, name: "Finish" }
-      ],
       errors: {}
     };
 
@@ -60,48 +54,58 @@ export default class App extends React.Component {
   };
   validate = () => {
     const errors = {};
-    const fields = this.state.values;
+    const {
+      firstname,
+      lastname,
+      password,
+      repeatPassword,
+      email,
+      mobile,
+      country,
+      city,
+      avatar
+    } = this.state.values;
     switch (this.state.step) {
-      case 0:
-        if (!fields.firstname) {
+      case 1:
+        if (!firstname) {
           errors.firstname = "Required!";
-        } else if (fields.firstname.length < 5) {
+        } else if (firstname.length < 5) {
           errors.firstname = "Username must be 5 characters or more";
         }
-        if (!fields.lastname) {
+        if (!lastname) {
           errors.lastname = "Required!";
-        } else if (fields.lastname.length < 5) {
+        } else if (lastname.length < 5) {
           errors.lastname = "Lastname must be 5 characters or more";
         }
-        if (!fields.password) {
+        if (!password) {
           errors.password = "Required!";
-        } else if (fields.password.length < 6) {
+        } else if (password.length < 6) {
           errors.password = "must be 6 characters or more";
         }
-        if (fields.password !== fields.repeatPassword) {
+        if (password !== repeatPassword) {
           errors.repeatPassword = "Passwords should be equal!";
         }
         break;
-      case 1:
-        if (!fields.email) {
+      case 2:
+        if (!email) {
           errors.email = "Required!";
-        } else if (fields.email.length < 6) {
+        } else if (email.length < 6) {
           errors.email = "Email is not valid!";
         }
-        if (!fields.mobile) {
+        if (!mobile) {
           errors.mobile = "Required!";
-        } else if (fields.mobile.length !== 10) {
+        } else if (mobile.length !== 10) {
           errors.mobile = "Phone is not valid!";
         }
-        if (!fields.country) {
+        if (!country) {
           errors.country = "Required!";
         }
-        if (!fields.city) {
+        if (!city) {
           errors.city = "Required!";
         }
         break;
-      case 2:
-        if (!fields.avatar) {
+      case 3:
+        if (!avatar) {
           errors.avatar = "Required!";
         }
         break;
@@ -109,22 +113,18 @@ export default class App extends React.Component {
         return null;
     }
 
-    if (Object.keys(errors).length > 0) {
-      this.setState({
-        errors: errors
-      });
-      return false;
-    } else {
-      this.setState({
-        errors: {}
-      });
-      return true;
-    }
+    return errors;
   };
 
   nextStep = event => {
     event.preventDefault();
-    if (this.validate()) {
+    const errors = this.validate();
+
+    if (Object.keys(errors).length > 0) {
+      this.setState({
+        errors: errors
+      });
+    } else {
       this.setState(prevState => ({
         step: prevState.step + 1
       }));
@@ -151,14 +151,14 @@ export default class App extends React.Component {
           <div className="steps mb-4">
             <Steps step={step} />
           </div>
-          {step === 0 && (
+          {step === 1 && (
             <Basic
               values={this.state.values}
               errors={this.state.errors}
               onChange={this.onChange}
             />
           )}
-          {step === 1 && (
+          {step === 2 && (
             <Contacts
               values={this.state.values}
               errors={this.state.errors}
@@ -166,14 +166,14 @@ export default class App extends React.Component {
             />
           )}
 
-          {step === 2 && (
+          {step === 3 && (
             <Avatar
               avatar={this.state.values.avatar}
               errors={this.state.errors}
               onChange={this.onChangeAvatar}
             />
           )}
-          {step === 3 && <Finish values={this.state.values} />}
+          {step === 4 && <Finish values={this.state.values} />}
           <Buttons
             step={step}
             prevStep={this.prevStep}
