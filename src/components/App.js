@@ -38,20 +38,6 @@ export default class App extends React.PureComponent {
       }
     });
   };
-  onChangeAvatar = event => {
-    const values = this.state.values;
-
-    const reader = new FileReader();
-    reader.onload = event => {
-      this.setState({
-        values: {
-          ...values,
-          avatar: event.target.result
-        }
-      });
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  };
   validate = () => {
     const errors = {};
     const {
@@ -170,7 +156,7 @@ export default class App extends React.PureComponent {
             <Avatar
               avatar={this.state.values.avatar}
               errors={this.state.errors}
-              onChange={this.onChangeAvatar}
+              onChange={this.onChange}
             />
           )}
           {step === 4 && <Finish values={this.state.values} />}
